@@ -10,27 +10,32 @@ module.exports = {
 
 const serviceName = openapi.info.title;
 
-if (process.env.CI) {
-  AWS.config.credentials = new AWS.EnvironmentCredentials(packagejson.aws.profile);
-} else {
-  AWS.config.credentials = new AWS.SharedIniFileCredentials({profile: packagejson.aws.profile});
-}
-AWS.config.update({
-  region: "ap-southeast-2"
-});
+let awslambda;
+let awsapigw;
+let awssts;
 
-const awslambda = new AWS.Lambda();
-const awsapigw = new AWS.ApiGatewayV2();
-const awssts = new AWS.STS();
-
-return doDeploy();
+doDeploy();
 
 async function doDeploy() {
   try {
+    if (process.env.CI) {
+      AWS.config.credentials = new AWS.EnvironmentCredentials(packagejson.aws.profile);
+    } else {
+      AWS.config.credentials = new AWS.SharedIniFileCredentials({profile: packagejson.aws.profile});
+    }
+    AWS.config.update({
+      region: "ap-southeast-2"
+    });
+
+    awslambda = new AWS.Lambda();
+    awsapigw = new AWS.ApiGatewayV2();
+    awssts = new AWS.STS();
+
     await deployLambdaFunction("./dist/", packagejson.lambda);
     await deployAPI(packagejson.awsApi);
   } catch (err) {
     console.log(err);
+    process.exit(1);
   }
 }
 
