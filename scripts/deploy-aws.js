@@ -11,7 +11,7 @@ module.exports = {
 const serviceName = openapi.info.title;
 
 if (process.env.CI) {
-  AWS.config.credentials = new AWS.EnvironmentCredentials("");
+  AWS.config.credentials = new AWS.EnvironmentCredentials(packagejson.aws.profile);
 } else {
   AWS.config.credentials = new AWS.SharedIniFileCredentials({profile: packagejson.aws.profile});
 }

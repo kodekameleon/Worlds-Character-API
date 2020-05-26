@@ -81,7 +81,7 @@
     "port": 8002
   },
   "aws": {
-    "profile": "worlds"
+    "profile": "WORLDS"
   },
   "lambda": {
     "role": "arn:aws:iam::256655063425:role/service-master",
