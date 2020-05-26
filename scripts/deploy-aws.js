@@ -10,7 +10,11 @@ module.exports = {
 
 const serviceName = openapi.info.title;
 
-AWS.config.credentials = new AWS.SharedIniFileCredentials({profile: packagejson.aws.profile});
+if (process.env.CI) {
+  AWS.config.credentials = new AWS.EnvironmentCredentials("");
+} else {
+  AWS.config.credentials = new AWS.SharedIniFileCredentials({profile: packagejson.aws.profile});
+}
 AWS.config.update({
   region: "ap-southeast-2"
 });
