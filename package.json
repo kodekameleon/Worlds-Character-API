@@ -1,0 +1,96 @@
+{
+  "name": "worldsapi-character",
+  "version": "0.0.1",
+  "description": "Worlds character service",
+  "main": "dist/service.js",
+  "scripts": {
+    "build": "BABEL_ENV=build npm run clean && rollup -c",
+    "clean": "rimraf dist",
+    "deploy": "node scripts/deploy-aws.js",
+    "start": "nodemon --exec 'npm run build && node scripts/lambda-api-server.js'",
+    "test": "BABEL_ENV=test nyc mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kodekameleon/WorldsAPI-Character.git"
+  },
+  "author": "kodekameleon@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kodekameleon/WorldsAPI-Character/issues"
+  },
+  "homepage": "https://github.com/kodekameleon/WorldsAPI-Character#readme",
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/register": "^7.9.0",
+    "@istanbuljs/nyc-config-babel": "^3.0.0",
+    "@rollup/plugin-babel": "^5.0.2",
+    "@rollup/plugin-commonjs": "^12.0.0",
+    "@rollup/plugin-node-resolve": "^8.0.0",
+    "adm-zip": "^0.4.14",
+    "aws-sdk": "^2.680.0",
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-istanbul": "^6.0.0",
+    "babel-preset-latest-node": "^4.1.0",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "chai-truthy": "^1.0.0",
+    "deep-equal-in-any-order": "^1.0.27",
+    "eslint": "^7.0.0",
+    "mocha": "^6.2.3",
+    "nodemon": "^2.0.4",
+    "nyc": "^15.0.1",
+    "openapi-enforcer": "^1.10.4",
+    "openapi-request-validator": "^4.2.0",
+    "qs": "^6.9.4",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.10.5",
+    "rollup-plugin-eslint": "^7.0.0",
+    "sinon": "^9.0.2",
+    "sinon-chai": "^3.5.0",
+    "uuid": "^8.1.0"
+  },
+  "dependencies": {},
+  "nodemonConfig": {
+    "watch": [
+      "src",
+      "scripts"
+    ]
+  },
+  "nyc": {
+    "register": "@babel/register",
+    "extends": "@istanbuljs/nyc-config-babel",
+    "include": [
+      "src/**/*.js*"
+    ],
+    "extension": [
+      ".js",
+      ".jsx"
+    ],
+    "reporter": [
+      "text-summary",
+      "html",
+      "lcov"
+    ],
+    "all": true,
+    "sourceMap": true,
+    "instrument": true
+  },
+  "server": {
+    "port": 8002
+  },
+  "aws": {
+    "profile": "worlds"
+  },
+  "lambda": {
+    "role": "arn:aws:iam::256655063425:role/service-master",
+    "handler": "service.handler"
+  },
+  "awsApi": {
+    "stage": "api",
+    "domain": "character.api.kodekameleon.net",
+    "logGroup": "arn:aws:logs:ap-southeast-2:256655063425:log-group:Worlds",
+    "logFormat": "$context.identity.sourceIp - - [$context.requestTime] \"$context.httpMethod $context.routeKey $context.protocol\" $context.status $context.responseLength $context.requestId"
+  }
+}

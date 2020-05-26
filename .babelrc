@@ -1,0 +1,23 @@
+{
+  "env" : {
+    "build" : {
+      "presets": [
+        ["babel-preset-latest-node", {"target":  "current", "modules":  false}]
+      ]
+    },
+    "test": {
+      "presets": [
+        "@babel/preset-env"
+      ],
+      "only": [
+        "./src/",
+        "./test"
+      ],
+      "exclude": [
+        "node_modules/**"
+      ],
+      "plugins": [
+      ]
+    }
+  }
+}
