@@ -23,5 +23,6 @@ jobs:
         npm ci --if-present
         npm run build --if-present
         npm test
+        echo ${{ github.ref }}
       env:
         CI: true
