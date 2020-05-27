@@ -1,7 +1,6 @@
-import resolve from "@rollup/plugin-node-resolve";
-import commonjs from "@rollup/plugin-commonjs";
 import babel from "@rollup/plugin-babel";
 import {eslint} from "rollup-plugin-eslint";
+import resolve from "@rollup/plugin-node-resolve";
 
 const sev = ["info", "warning", "error"];
 const eslintFormatter = (results) => {
@@ -20,8 +19,7 @@ export default {
   },
   plugins: [
     eslint({formatter: eslintFormatter}),
-    resolve(),
-    commonjs(),
-    babel({babelHelpers: "bundled"})
+    babel({babelHelpers: "bundled"}),
+    resolve()
   ]
-}
+};

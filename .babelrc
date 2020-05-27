@@ -2,7 +2,7 @@
   "env" : {
     "build" : {
       "presets": [
-        ["babel-preset-latest-node", {"target":  "current", "modules":  false}]
+        "@babel/preset-env"
       ]
     },
     "test": {

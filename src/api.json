@@ -27,7 +27,33 @@
         },
         "operationId": "getClasses",
         "summary": "List all CharacterClasses",
-        "description": "Gets a list of all `CharacterClass` entities."
+        "description": "Gets a list of all `CharacterClass` entities.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "offset",
+            "description": "Index of first item to return"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "limit",
+            "description": "Maximum number of items returned"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "brief",
+            "description": "Return just the id, name and description of the items"
+          }
+        ]
       },
       "post": {
         "requestBody": {
@@ -176,7 +202,33 @@
         },
         "operationId": "getRaces",
         "summary": "List All races",
-        "description": "Gets a list of all `Race` entities."
+        "description": "Gets a list of all `Race` entities.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "offset",
+            "description": "Index of first item to return"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "limit",
+            "description": "Maximum number of items returned"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "brief",
+            "description": "Return just the id, name and description of the items"
+          }
+        ]
       },
       "post": {
         "requestBody": {

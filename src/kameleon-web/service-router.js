@@ -47,15 +47,19 @@ export async function main(event) {
       return {
         statusCode: err
       };
-    } else if (typeof err === "object" && err.statusCode) {
+    } else if (typeof err === "object" && err.httpStatusCode) {
       // Otherwise, if there is an object with a statusCode assume this is an error intended
       // for the client and return it.
-      console.error(`Web service ${event.routeKey} returning ${err.statusCode} ${err.body}`);
+      console.error(`Web service ${event.routeKey} returning ${err.statusCode} ${err.message}`);
       console.log(err);
-      return err;
+      return {
+        statusCode: err.httpStatusCode,
+        body: typeof err.message === "string" ? JSON.stringify(err.message) : JSON.stringify(err)
+      };
     } else {
       // All other exceptions are server exceptions, they are logged and 500 is returned.
       console.error(`Web service ${event.routeKey} returning unexpected error: `, err);
+      console.log(err);
       return {
         statusCode: 500
       };
