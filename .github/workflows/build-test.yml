@@ -3,7 +3,10 @@
 
 name: Build and Test CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - '!production'
 
 jobs:
   build:
