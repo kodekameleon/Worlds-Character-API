@@ -18,11 +18,14 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: npm install, build, and test
-      run: |
-        npm ci --if-present
-        npm run build --if-present
-        npm test
-        echo ${{ github.ref }}
+    - run: npm ci --if-present
+    - run: npm run build --if-present
       env:
         CI: true
+    - run: npm test
+      env:
+        CI: true
+    - run: echo ${{ github.ref }} ${{ env.CI }}
+      env:
+        CI: true
+    - run: echo ${{ github.ref }} ${{ env.CI }}
