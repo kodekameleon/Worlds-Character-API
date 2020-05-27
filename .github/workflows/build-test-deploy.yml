@@ -42,8 +42,7 @@ jobs:
       - run: npm test
         env:
           CI: true
-      - run:
-          npm run deploy
+      - run: npm run deploy
         env:
           CI: true
           WORLDS_ACCESS_KEY_ID: ${{secrets.WORLDS_ACCESS_KEY_ID}}

@@ -31,6 +31,7 @@
     "aws-sdk": "^2.680.0",
     "babel-eslint": "^10.1.0",
     "babel-plugin-istanbul": "^6.0.0",
+    "babel-preset-latest-node": "^4.1.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-truthy": "^1.0.0",
