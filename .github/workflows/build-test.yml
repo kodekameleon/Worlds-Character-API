@@ -33,7 +33,7 @@ jobs:
   deploy-aws:
     needs: build
     runs-on: ubuntu-latest
-    if: contains(github.ref, "/production")
+    if: contains(github.ref, '/production')
     steps:
       - run: echo on production branch ${{ github.ref }} ${{ env.CI }}
         env:
@@ -42,7 +42,7 @@ jobs:
   check-ci:
     needs: build
     runs-on: ubuntu-latest
-    if: contains(github.ref, "/ci")
+    if: contains(github.ref, '/ci')
     steps:
       - run: echo ON CI branch ${{ github.ref }} ${{ env.CI }}
         env:
