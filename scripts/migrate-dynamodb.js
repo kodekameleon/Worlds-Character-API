@@ -26,10 +26,12 @@ async function migrate() {
 
 const helpers = {
   getTableVersion: async (tableName) => {
+    // console.log(aws.config);
     let version = {};
     try {
       const res = await dbclient.query({
         TableName: "worlds-schema",
+        ConsistentRead: true,
         KeyConditionExpression: "tableName = :name",
         ExpressionAttributeValues: {":name": tableName}
       }).promise();
@@ -49,9 +51,10 @@ const helpers = {
     try {
       await dynamodb.describeTable({TableName: tableName}).promise();
     } catch (err) {
-      console.log(`Table ${tableName} has been deleted, reset table version`);
+      if (version.version) {
+        console.log(`Table ${tableName} has been deleted, reset table version`);
+      }
       version = {};
-      helpers.setTableVersion(tableName, 0);
     }
 
     return version;
