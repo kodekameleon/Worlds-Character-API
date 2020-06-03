@@ -4,13 +4,15 @@ export const service = {};
 const methodSuccessMap = {
   "GET": 200,
   "POST": 201,
-  "PUT": 202,
+  "PUT": 200,
   "DELETE": 204,
   "HEAD": 200
 };
 
 export async function main(event) {
   try {
+    event.accountId = "development";  // TODO: Need to determine the account
+
     if (service[event.routeKey]) {
       const res = await service[event.routeKey](event);
 

@@ -3,6 +3,8 @@ const packagejson = require("../package");
 const Zip = require("adm-zip");
 const openapi = require("../src/api.json");
 
+// TODO: Add CORS configuration
+
 module.exports = {
   deployAPI,
   deployLambdaFunction
@@ -144,6 +146,20 @@ async function deployAPI(settings) {
     }).promise();
   }
 
+  // If there is a domain create a mapping to it
+  if (settings.domain) {
+    const mappings = await awsapigw.getApiMappings({DomainName: settings.domain}).promise();
+    const mapping = mappings.Items.find(m => m.ApiId === api.ApiId);
+    if (!mapping) {
+      console.log("Create a mapping to the domain");
+      await awsapigw.createApiMapping({
+        ApiId: api.ApiId,
+        DomainName: settings.domain,
+        Stage: settings.stage
+      }).promise();
+    }
+  }
+
   // Create a deployment for the API and the stage to do the deployment
   console.log("Deploy the API");
   const deployment = await awsapigw.createDeployment({
@@ -160,20 +176,6 @@ async function deployAPI(settings) {
       await awsapigw.deleteDeployment({
         ApiId: api.ApiId,
         DeploymentId: d.DeploymentId
-      }).promise();
-    }
-  }
-
-  // If there is a domain create a mapping to it
-  if (settings.domain) {
-    const mappings = await awsapigw.getApiMappings({DomainName: settings.domain}).promise();
-    const mapping = mappings.Items.find(m => m.ApiId === api.ApiId);
-    if (!mapping) {
-      console.log("Create a mapping to the domain");
-      await awsapigw.createApiMapping({
-        ApiId: api.ApiId,
-        DomainName: settings.domain,
-        Stage: settings.stage
       }).promise();
     }
   }
