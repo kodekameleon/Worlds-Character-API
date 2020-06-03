@@ -7,7 +7,15 @@ const packagejson = require("../package");
 const api = require("../src/api.json");
 const AWS = require("aws-sdk");
 
+process.env.CI || require("dotenv").config();
+
 AWS.config.credentials = new AWS.SharedIniFileCredentials({profile: packagejson.server.profile});
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "OPTIONS, POST, GET, PUT, DELETE",
+  "Access-Control-Max-Age": 2592000
+};
 
 const server = http.createServer(async (request, response) => {
   const event = await generateEvent(request);
@@ -16,11 +24,16 @@ const server = http.createServer(async (request, response) => {
   const res = await service.handler(event);
   response.statusCode = res.statusCode;
   response.setHeader("Content-Type", "application/json");
+
+  for (const header in corsHeaders) {
+    response.setHeader(header, corsHeaders[header]);
+  }
+
   response.end(res.body);
 });
 
 server.listen(packagejson.server.port || 8001, packagejson.server.host || "localhost", () => {
-  console.log("Server running");
+  console.log(`Server running on port ${packagejson.server.port || 8001}`);
 });
 
 async function generateEvent(request) {

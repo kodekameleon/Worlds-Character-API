@@ -139,7 +139,7 @@
           "required": true
         },
         "responses": {
-          "202": {
+          "200": {
             "description": "Successful response."
           }
         },
@@ -314,7 +314,7 @@
           "required": true
         },
         "responses": {
-          "202": {
+          "200": {
             "description": "Successful response."
           }
         },
@@ -360,7 +360,7 @@
   "components": {
     "schemas": {
       "CharacterClass": {
-        "title": "Root Type for CharacterClass",
+        "title": "CharacterClass",
         "description": "Describes a character class.",
         "type": "object",
         "properties": {
@@ -375,19 +375,18 @@
           "description": {
             "description": "Describes the characteristics of the character class",
             "type": "string"
+          },
+          "source": {
+            "type": "string"
           }
         },
-        "example": {
-          "uniqueId": "srd:wizard",
-          "name": "Wizard",
-          "description": "Wizards are supreme magic-users, defined and united as a class by the spells they cast. Drawing on the subtle weave of magic that permeates the cosmos, wizards cast spells of explosive fire, arcing lightning, subtle deception, and brute-force mind control. Their magic conjures monsters from other planes of existence, glimpses the future, or turns slain foes into zombies. Their mightiest spells change one substance into another, call meteors down from the sky, or open portals to other worlds."
-        }
+        "required": [
+          "name",
+          "source"
+        ]
       },
       "Race": {
         "description": "Describes a character race.",
-        "required": [
-          "uniqueId"
-        ],
         "type": "object",
         "properties": {
           "uniqueId": {
@@ -401,13 +400,16 @@
           "description": {
             "description": "Describes the characteristics of the character race",
             "type": "string"
+          },
+          "source": {
+            "type": "string"
           }
         },
-        "example": {
-          "uniqueId": "srd:human",
-          "name": "Human",
-          "description": "Humans are the most adaptable and ambitious people among the common races. They have widely varying tastes, morals, and customs in the many different lands where they have settled. When they settle, though, they stay: they build cities to last for the ages, and great kingdoms that can persist for long centuries. An individual human might have a relatively short life span, but a human nation or culture preserves traditions with origins far beyond the reach of any single human’s memory. They live fully in the present—making them well suited to the adventuring life—but also plan for the future, striving to leave a lasting legacy. Individually and as a group, humans are adaptable opportunists, and they stay alert to changing political and social dynamics."
-        }
+        "required": [
+          "name",
+          "source"
+        ],
+        "title": "Race"
       }
     }
   }

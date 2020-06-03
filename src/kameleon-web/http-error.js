@@ -1,3 +1,3 @@
-export function HttpError(httpStatusCode, message) {
-  return {httpStatusCode, message};
+export function HttpError(httpStatusCode, message, additionalInfo) {
+  return {httpStatusCode, message, ...additionalInfo};
 }
