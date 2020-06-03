@@ -1,6 +1,6 @@
+require("./init-env").init();
 const fs = require("fs");
 const path = require("path");
-process.env.CI || require("dotenv").config();
 const {dynamodb, dbclient} = require("../dist/service").connect;
 
 async function migrate() {

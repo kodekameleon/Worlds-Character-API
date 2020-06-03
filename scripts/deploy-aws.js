@@ -1,3 +1,4 @@
+require("init-env").init();
 const AWS = require("aws-sdk");
 const packagejson = require("../package");
 const Zip = require("adm-zip");
@@ -20,11 +21,6 @@ doDeploy();
 
 async function doDeploy() {
   try {
-    if (process.env.CI) {
-      AWS.config.credentials = new AWS.EnvironmentCredentials(packagejson.aws.profile);
-    } else {
-      AWS.config.credentials = new AWS.SharedIniFileCredentials({profile: packagejson.aws.profile});
-    }
     AWS.config.update({
       region: "ap-southeast-2"
     });
