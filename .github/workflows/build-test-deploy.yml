@@ -29,7 +29,7 @@ jobs:
   deploy-aws:
     needs: build
     runs-on: ubuntu-latest
-    if: contains(github.ref, '/production')
+    if: contains(github.ref, '/master')
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
