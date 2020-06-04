@@ -17,9 +17,13 @@ module.exports = {
       // Now populate the table
       console.log("Populate classes table");
       const createClass = Object.values(characterService.service).find(f => f.name === "createClass");
-      for (const c of data.classes) {
-        await createClass({accountId: "worlds", body: c});
-      }
+      await helpers.exponentialBackoff(async () => {
+        for (const c of data.classes) {
+          // console.log("Create class");
+          // console.log(c);
+          await createClass({accountId: "worlds", body: c});
+        }
+      });
     }
   }
 };

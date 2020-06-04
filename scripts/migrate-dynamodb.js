@@ -101,6 +101,32 @@ const helpers = {
       }
     }).promise();
   },
+
+  exponentialBackoff: async (callback, maxAttempts = 5) => {
+    let failed;
+    let delay = 0;
+    for (let attempt = 1; attempt <= maxAttempts; ++attempt) {
+      try {
+        if (delay) {
+          await (() => new Promise(resolve => setTimeout(resolve, delay * 1000)))();
+        }
+        const res = await callback();
+        if (attempt != 1) {
+          console.log(`Attempt ${attempt} succeeded`);
+        }
+        return res;
+      } catch (err) {
+        failed = err;
+        delay = delay * 2 + 1;
+        if (attempt < maxAttempts) {
+          console.log(`Attempt ${attempt} failed, wait ${delay} seconds for next attempt`);
+        }
+      }
+    }
+    console.log("All allowed attempts have failed");
+    console.log(failed);
+    throw(failed);
+  }
 };
 
 async function createSchemaTable() {
