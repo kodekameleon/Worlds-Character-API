@@ -1,4 +1,4 @@
-require("init-env").init();
+require("./init-env").init();
 const AWS = require("aws-sdk");
 const packagejson = require("../package");
 const Zip = require("adm-zip");
