@@ -1,0 +1,416 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "characterService",
+    "version": "1.0.0",
+    "description": "Worlds character service API"
+  },
+  "paths": {
+    "/{apiVersion}/classes": {
+      "summary": "Path used to manage the list of CharacterClasses.",
+      "description": "The REST endpoint/path used to list and create zero or more `CharacterClass` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CharacterClass"
+                  }
+                }
+              }
+            },
+            "description": "Successful response - returns an array of `CharacterClass` entities."
+          }
+        },
+        "operationId": "getClasses",
+        "summary": "List all CharacterClasses",
+        "description": "Gets a list of all `CharacterClass` entities.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "offset",
+            "description": "Index of first item to return"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "limit",
+            "description": "Maximum number of items returned"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "brief",
+            "description": "Return just the id, name and description of the items"
+          }
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "description": "A new `CharacterClass` to be created.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CharacterClass"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response.",
+            "headers": {
+              "Location": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "createClass",
+        "summary": "Create a CharacterClass",
+        "description": "Creates a new instance of a `CharacterClass`."
+      },
+      "parameters": [
+        {
+          "name": "basic",
+          "description": "Return just the basic information about the classes, uniqueId, name, description.",
+          "schema": {
+            "type": "boolean"
+          },
+          "in": "query"
+        },
+        {
+          "name": "apiVersion",
+          "description": "Version of the API to use",
+          "schema": {
+            "enum": [
+              "v1"
+            ],
+            "type": "string"
+          },
+          "in": "path",
+          "required": true
+        }
+      ]
+    },
+    "/{apiVersion}/classes/{classId}": {
+      "summary": "Path used to manage a single CharacterClass.",
+      "description": "The REST endpoint/path used to get, update, and delete single instances of an `CharacterClass`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CharacterClass"
+                }
+              }
+            },
+            "description": "Successful response - returns a single `CharacterClass`."
+          }
+        },
+        "operationId": "getClass",
+        "summary": "Get a CharacterClass",
+        "description": "Gets the details of a single instance of a `CharacterClass`."
+      },
+      "put": {
+        "requestBody": {
+          "description": "Updated `CharacterClass` information.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CharacterClass"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response."
+          }
+        },
+        "operationId": "updateClass",
+        "summary": "Update a CharacterClass",
+        "description": "Updates an existing `CharacterClass`."
+      },
+      "delete": {
+        "responses": {
+          "204": {
+            "description": "Successful response."
+          }
+        },
+        "operationId": "deleteClass",
+        "summary": "Delete a CharacterClass",
+        "description": "Deletes an existing `CharacterClass`."
+      },
+      "parameters": [
+        {
+          "name": "apiVersion",
+          "description": "Version of the API to use",
+          "schema": {
+            "enum": [
+              "v1"
+            ],
+            "type": "string"
+          },
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "classId",
+          "description": "A unique identifier for a `CharacterClass`.",
+          "schema": {
+            "type": "string"
+          },
+          "in": "path",
+          "required": true
+        }
+      ]
+    },
+    "/{apiVersion}/races": {
+      "summary": "Path used to manage the list of Races.",
+      "description": "The REST endpoint/path used to list and create zero or more `Race` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Race"
+                  }
+                }
+              }
+            },
+            "description": "Successful response - returns an array of `Race` entities."
+          }
+        },
+        "operationId": "getRaces",
+        "summary": "List All races",
+        "description": "Gets a list of all `Race` entities.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "offset",
+            "description": "Index of first item to return"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "limit",
+            "description": "Maximum number of items returned"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "brief",
+            "description": "Return just the id, name and description of the items"
+          }
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "description": "A new `Race` to be created.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Race"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response.",
+            "headers": {
+              "Location": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "createRace",
+        "summary": "Create a Race",
+        "description": "Creates a new instance of a `Race`."
+      },
+      "parameters": [
+        {
+          "name": "apiVersion",
+          "description": "Version of the API to use",
+          "schema": {
+            "enum": [
+              "v1"
+            ],
+            "type": "string"
+          },
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "basic",
+          "description": "Return just the basic information about the races, uniqueId, name, description.",
+          "schema": {
+            "type": "string"
+          },
+          "in": "query"
+        }
+      ]
+    },
+    "/{apiVersion}/races/{raceId}": {
+      "summary": "Path used to manage a single Race.",
+      "description": "The REST endpoint/path used to get, update, and delete single instances of an `Race`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Race"
+                }
+              }
+            },
+            "description": "Successful response - returns a single `Race`."
+          }
+        },
+        "operationId": "getRace",
+        "summary": "Get a Race",
+        "description": "Gets the details of a single instance of a `Race`."
+      },
+      "put": {
+        "requestBody": {
+          "description": "Updated `Race` information.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Race"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response."
+          }
+        },
+        "operationId": "updateRace",
+        "summary": "Update a Race",
+        "description": "Updates an existing `Race`."
+      },
+      "delete": {
+        "responses": {
+          "204": {
+            "description": "Successful response."
+          }
+        },
+        "operationId": "deleteRace",
+        "summary": "Delete a Race",
+        "description": "Deletes an existing `Race`."
+      },
+      "parameters": [
+        {
+          "name": "apiVersion",
+          "description": "Version of the API to use",
+          "schema": {
+            "enum": [
+              "v1"
+            ],
+            "type": "string"
+          },
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "raceId",
+          "description": "A unique identifier for a `Race`.",
+          "schema": {
+            "type": "string"
+          },
+          "in": "path",
+          "required": true
+        }
+      ]
+    }
+  },
+  "components": {
+    "schemas": {
+      "CharacterClass": {
+        "title": "CharacterClass",
+        "description": "Describes a character class.",
+        "type": "object",
+        "properties": {
+          "uniqueId": {
+            "description": "Unique ID assigned to the character class",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the character class",
+            "type": "string"
+          },
+          "description": {
+            "description": "Describes the characteristics of the character class",
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "source"
+        ]
+      },
+      "Race": {
+        "description": "Describes a character race.",
+        "type": "object",
+        "properties": {
+          "uniqueId": {
+            "description": "Unique ID assigned to the character race",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the character race",
+            "type": "string"
+          },
+          "description": {
+            "description": "Describes the characteristics of the character race",
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "source"
+        ],
+        "title": "Race"
+      }
+    }
+  }
+}
