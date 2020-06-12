@@ -27,12 +27,13 @@ jobs:
           CI: true
       - run: echo ${{ toJson(github) }}
       - run: echo ${{ github.ref }}
-        if: contains(github.ref, 'release')
+        if: contains(github.ref, '/refs/tags/v')
+
 
   deploy-aws:
     needs: build
     runs-on: ubuntu-latest
-    if: contains(github.ref, '/master')
+    if: contains(github.ref, '/refs/tags/xxx')
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
