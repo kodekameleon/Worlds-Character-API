@@ -25,7 +25,7 @@ jobs:
       - run: npm test
         env:
           CI: true
-      - run: echo ${{ github }}
+      - run: print(${{ github }})
       - run: echo ${{ github.ref }}
         if: contains(github.ref, 'release')
 
