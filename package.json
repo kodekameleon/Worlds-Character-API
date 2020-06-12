@@ -1,6 +1,6 @@
 {
   "name": "worldsapi-character",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Worlds character service",
   "main": "dist/service.js",
   "scripts": {
