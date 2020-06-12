@@ -25,14 +25,11 @@ jobs:
       - run: npm test
         env:
           CI: true
-      - run: echo ${{ github.ref }}
-        if: contains(github.ref, 'refs/tags/v')
-
 
   deploy-aws:
     needs: build
     runs-on: ubuntu-latest
-    if: contains(github.ref, 'refs/tags/xxx')
+    if: contains(github.ref, 'refs/tags/v')
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
