@@ -43,7 +43,7 @@
     "nodemon": "^2.0.4",
     "nyc": "^15.0.1",
     "openapi-enforcer": "^1.10.4",
-    "qs": "^6.9.4",
+    "qs": "^6.9.7",
     "rimraf": "^3.0.2",
     "rollup": "^2.10.5",
     "rollup-plugin-eslint": "^7.0.0",
